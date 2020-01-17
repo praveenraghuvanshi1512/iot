@@ -79,11 +79,11 @@ Tutorial is divided into 4 stages
 
       - In-Progress
 
-        <img src=".\assets\balena-raspian-os-inprogress.jpg" alt="Burning os image to SD card-Balena" style="zoom:50%;" />
+        <img src=".\assets\balena-raspian-inprogress.jpg" alt="Burning os image to SD card-Balena" style="zoom:50%;" />
 
       - Completed
 
-        <img src=".\assets\balena-raspian-os-completed.jpg" alt="Burning os image to SD card-Balena - Completed" style="zoom:50%;" />
+        <img src=".\assets\balena-raspian-completed.jpg" alt="Burning os image to SD card-Balena - Completed" style="zoom:50%;" />
 
         - **Failure**: In case there is a failure due to checksum error, please follow steps in below link
         - [How to prevent creation of “System Volume Information” folder in Windows 10 for USB flash drives?](https://superuser.com/questions/1199823/how-to-prevent-creation-of-system-volume-information-folder-in-windows-10-for)
