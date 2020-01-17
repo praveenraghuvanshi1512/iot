@@ -83,7 +83,7 @@ Tutorial is divided into 4 stages
 
       - Completed
 
-        <img src=".\assets\balena-raspian-os-completed.JPG" alt="Burning os image to SD card-Balena - Completed" style="zoom:50%;" />
+        <img src=".\assets\balena-raspian-os-completed.jpg" alt="Burning os image to SD card-Balena - Completed" style="zoom:50%;" />
 
         - **Failure**: In case there is a failure due to checksum error, please follow steps in below link
         - [How to prevent creation of “System Volume Information” folder in Windows 10 for USB flash drives?](https://superuser.com/questions/1199823/how-to-prevent-creation-of-system-volume-information-folder-in-windows-10-for)
@@ -149,11 +149,11 @@ Tutorial is divided into 4 stages
 
       - Enter *sudo raspi-config*
 
-        ![Raspi config home](.\assets\raspi-config-home.jpg)
+        <img src=".\assets\raspi-config-home.jpg" alt="Raspi config home" style="zoom:80%;" />
 
       - Select Option 5: Interfacing Options
 
-        ![Raspi config - VNC](.\assets\raspi-config-vnc.jpg)
+        <img src=".\assets\raspi-config-vnc.jpg" alt="Raspi config - VNC" style="zoom:80%;" />
 
       - Select P3-VNC and Press Yes
 
@@ -161,7 +161,7 @@ Tutorial is divided into 4 stages
 
       - Pres Y to continue
 
-        ![Raspi-VNC-Confirm-2](.\assets\raspi-config-vnc-confirm-2.jpg)
+        <img src=".\assets\raspi-config-vnc-confirm-2.jpg" alt="Raspi-VNC-Confirm-2" style="zoom:80%;" />
 
       - Enter *sudo reboot now* to reboot in order the settings to take into effect
 
@@ -171,7 +171,7 @@ Tutorial is divided into 4 stages
 
         - In case black screen with message 'Cannot currently show the desktop' is displayed, follow below steps
 
-          ![VNC-Desktop-Error](.\assets\vnc-desktop-error.jpg)
+          <img src=".\assets\vnc-desktop-error.jpg" alt="VNC-Desktop-Error" style="zoom:80%;" />
 
           - Connect raspberry pi through SSH
           - Enter *sudo raspi-config*
@@ -225,7 +225,7 @@ Tutorial is divided into 4 stages
       
         - Execute *sudo nano /etc/dhcpcd.conf*. File will be opened in edit mode. Add top four lines at the beginning of file. Ctrl+X and Y to save the file.
       
-        ![image-20200112181004304](.\assets\dhcpconfig.jpg)
+        <img src=".\assets\dhcpconfig.jpg" alt="image-20200112181004304" style="zoom:80%;" />
       
         
       
