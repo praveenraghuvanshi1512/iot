@@ -22,6 +22,8 @@ import sys
 import time
 from threading import Thread
 import importlib.util
+from gpio import GPIOEX
+
 
 # Define VideoStream class to handle streaming of video from webcam in separate processing thread
 # Source - Adrian Rosebrock, PyImageSearch: https://www.pyimagesearch.com/2015/12/28/increasing-raspberry-pi-fps-with-python-and-opencv/
@@ -158,6 +160,9 @@ freq = cv2.getTickFrequency()
 videostream = VideoStream(resolution=(imW,imH),framerate=30).start()
 time.sleep(1)
 
+# Initialize GPIO
+gpio = GPIOEX()
+
 #for frame1 in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):
 while True:
 
@@ -214,6 +219,8 @@ while True:
             if (object_name == "person" and int(scores[i]*100) > 60):
                 print("**** Person Detected")
                 print(label)
+                gpio = GPIOEX()
+                gpio.blinkLed()
 
     # Draw framerate in corner of frame
     cv2.putText(frame,'FPS: {0:.2f}'.format(frame_rate_calc),(30,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2,cv2.LINE_AA)
