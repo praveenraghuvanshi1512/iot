@@ -281,13 +281,28 @@ Tutorial is divided into 4 stages
 	       1. Download *wget https://storage.googleapis.com/download.tensorflow.org/models/tflite/coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip*
 	       2. Unzip *unzip coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip -d Sample_TFLite_model*
 	    7. Run model to start webcam and start making predictions
+	       
 	       1. *python3 TFLite_detection_webcam.py --modeldir=Sample_TFLite_model*
+	     
+	       2. Errors
+	     
+	          1. ModuleNotFoundError: No module named 'tflite_runtime'
+	     
+	             python3 TFLite_detection_webcam.py --modeldir=Sample_TFLite_model
+	             Traceback (most recent call last):
+	               File "TFLite_detection_webcam.py", line 98, in <module>
+	                 from tflite_runtime.interpreter import Interpreter
+	             ModuleNotFoundError: No module named 'tflite_runtime'
+	       
+	             Solution: *source tflite1-env/bin/activate*
+	       
+	       
 	    8. Awesome!!! 
-	
 	  
-	
+	  
+	  
 	  ## References
-	
+	  
 	  - [How to Set Static IP for Raspberry Pi in Raspbian Jessie](https://www.youtube.com/watch?v=dfZlMvzQVsI)
 	  - [2016: Assign a Static IP Address to Raspberry Pi](https://www.youtube.com/watch?v=D1eD60_jhKI)
 	  - [Raspberry Pi - Tutorial 12 - Networking - How to Configure a Static IP Address & Setup Wifi](https://www.youtube.com/watch?v=D-s8Uj0uZoA)
