@@ -262,59 +262,127 @@ Tutorial is divided into 4 stages
 - **Deploy image classification model** 
 	
 	- Reference: [Part 2 - How to Run TensorFlow Lite Object Detection Models on the Raspberry Pi (with Optional Coral USB Accelerator)](https://github.com/EdjeElectronics/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi/blob/master/Raspberry_Pi_Guide.md#step-1e-run-the-tensorflow-lite-model)
-		
+	
 	- TensorFlow Lite	
+	
 	  - Followed step by step instructions in the tutorial and it worked without any issue. Summarized steps/commands. 
 	
 	    1. *sudo apt-get update*
 	
 	    2. *sudo apt-get dist-upgrade* (Time consuming)
+	
 	    3. Download code from github
+	
 	       1. *git clone https://github.com/EdjeElectronics/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi.git*
 	       2. Move code to tflite1 directory *mv TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi tflite1*
 	       3. Change directory *cd tflite1*
+	
 	    4. Create Virtual Environment for isolation
+	
 	       1. Install virtual environment *sudo pip3 install virtualenv*
 	       2. Create virtual environment *source tflite1-env/bin/activate*
+	
 	    5. Install dependencies *bash get_pi_requirements.sh*
+	
 	    6. Google's sample TFLite model
+	
 	       1. Download *wget https://storage.googleapis.com/download.tensorflow.org/models/tflite/coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip*
 	       2. Unzip *unzip coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip -d Sample_TFLite_model*
+	
 	    7. Run model to start webcam and start making predictions
-	       
+	
 	       1. *python3 TFLite_detection_webcam.py --modeldir=Sample_TFLite_model*
-	     
+	
 	       2. Errors
-	     
+	
 	          1. ModuleNotFoundError: No module named 'tflite_runtime'
-	     
+	
 	             python3 TFLite_detection_webcam.py --modeldir=Sample_TFLite_model
 	             Traceback (most recent call last):
 	               File "TFLite_detection_webcam.py", line 98, in <module>
 	                 from tflite_runtime.interpreter import Interpreter
 	             ModuleNotFoundError: No module named 'tflite_runtime'
-	       
+	
 	             Solution: *source tflite1-env/bin/activate*
-	       
-	       
-	    8. Awesome!!! 
-	  
-	  
-	  
-	  ## References
-	  
-	  - [How to Set Static IP for Raspberry Pi in Raspbian Jessie](https://www.youtube.com/watch?v=dfZlMvzQVsI)
-	  - [2016: Assign a Static IP Address to Raspberry Pi](https://www.youtube.com/watch?v=D1eD60_jhKI)
-	  - [Raspberry Pi - Tutorial 12 - Networking - How to Configure a Static IP Address & Setup Wifi](https://www.youtube.com/watch?v=D-s8Uj0uZoA)
-	  - https://magpi.raspberrypi.org/articles/set-up-raspberry-pi-4
-	  - https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up
-	  - https://www.instructables.com/id/How-to-Setup-a-Raspberry-Pi/
-	  - https://projects.raspberrypi.org/en/projects/getting-started-with-picamera
-	  - https://www.youtube.com/watch?v=aimSGOAUI8Y
-	  - https://www.techrepublic.com/article/raspberry-pi-and-machine-learning-how-to-get-started/
-	  - https://www.youtube.com/watch?v=npZ-8Nj1YwY
-	  - https://github.com/EdjeElectronics/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi/blob/master/Raspberry_Pi_Guide.md#step-1e-run-the-tensorflow-lite-model
-	  - https://github.com/EdjeElectronics/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi/blob/master/Raspberry_Pi_Guide.md
-	  - https://www.pyimagesearch.com/2017/10/02/deep-learning-on-the-raspberry-pi-with-opencv/
-	  - https://www.pyimagesearch.com/2017/10/16/raspberry-pi-deep-learning-object-detection-with-opencv/
-	  - [Matchbox Keyboard - Raspberry Pi Touchscreen Keyboard](https://thepihut.com/blogs/raspberry-pi-tutorials/matchbox-keyboard-raspberry-pi-touchscreen-keyboard)
+	
+	    8. Awesome!!!
+	
+	---------------------
+	
+	# Part - 2: Blink an LED on object detection
+	
+	1. Connect a LED on GPIO pin number 18 of Raspberry pi
+	
+	2. Create a file gpio.py at the location with file 'TFLite_detection_webcam.py'
+	
+	3. Copy/Paste below code in gpio.py file. In this we are creating a class to manage all the functionality to GPIO pins. Here we'll turn LED on/off for a second.
+	
+	   ```python
+	   import RPi.GPIO as GPIOEX
+	   import time
+	   
+	   class GPIOEX:
+	       ''' Manages GPIO connection and behavior
+	       https://www.instructables.com/id/Raspberry-Pi-LED-Blink/'''
+	       def blinkLed(self):
+	           print('**** GPIOEX::Person Detected')
+	           print('LED On')
+	           GPIO.output(18, GPIO.HIGH)
+	           time.sleep(1)
+	           print('LED Off')
+	           GPIO.output(18, GPIO.LOW)
+	   
+	       def initialize(self):
+	           GPIO.setmode(GPIO.BCM)
+	           GPIO.setwarnings(False)
+	           GPIO.setup(18, GPIO.OUT)
+	   
+	   gpio = GPIOEX()
+	   gpio.blinkLed()
+	   ```
+	
+	   
+	
+	4. Now open 'TFLite_detection_webcam.py' in notepad and add below lines at specified numbers
+	
+	   ```python
+	   from gpio import GPIOEX # Line no 25
+	   gpio = GPIOEX() # Line no 163 and 164
+	   
+	   # Notify others about person detected objects. Line# 217
+	   if (object_name == "person" and int(scores[i]*100) > 60):
+	       print("**** Person Detected")
+	       print(label)
+	       gpio = GPIOEX()
+	       gpio.blinkLed()
+	   ```
+	
+	   
+	
+	5. Connect everything and see the LED glow whenever a person comes in front of webcam 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	## References
+	
+	- [How to Set Static IP for Raspberry Pi in Raspbian Jessie](https://www.youtube.com/watch?v=dfZlMvzQVsI)
+	- [2016: Assign a Static IP Address to Raspberry Pi](https://www.youtube.com/watch?v=D1eD60_jhKI)
+	- [Raspberry Pi - Tutorial 12 - Networking - How to Configure a Static IP Address & Setup Wifi](https://www.youtube.com/watch?v=D-s8Uj0uZoA)
+	- https://magpi.raspberrypi.org/articles/set-up-raspberry-pi-4
+	- https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up
+	- https://www.instructables.com/id/How-to-Setup-a-Raspberry-Pi/
+	- https://projects.raspberrypi.org/en/projects/getting-started-with-picamera
+	- https://www.youtube.com/watch?v=aimSGOAUI8Y
+	- https://www.techrepublic.com/article/raspberry-pi-and-machine-learning-how-to-get-started/
+	- https://www.youtube.com/watch?v=npZ-8Nj1YwY
+	- https://github.com/EdjeElectronics/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi/blob/master/Raspberry_Pi_Guide.md#step-1e-run-the-tensorflow-lite-model
+	- https://github.com/EdjeElectronics/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi/blob/master/Raspberry_Pi_Guide.md
+	- https://www.pyimagesearch.com/2017/10/02/deep-learning-on-the-raspberry-pi-with-opencv/
+	- https://www.pyimagesearch.com/2017/10/16/raspberry-pi-deep-learning-object-detection-with-opencv/
+	- [Matchbox Keyboard - Raspberry Pi Touchscreen Keyboard](https://thepihut.com/blogs/raspberry-pi-tutorials/matchbox-keyboard-raspberry-pi-touchscreen-keyboard)
